@@ -7,7 +7,7 @@ sandal_dict = ["sandalia","tacones"]
 shirt_dict = ["shirt", "camisa"]
 sneaker_dict = ["sneaker", "tenis", "playeros", "playeras"]
 bag_dict = ["bag", "mochila", "bolso", "bolsa", "bolsos"]
-ancle_bot_dict = ["ancle boot", "zapato", "zapatos"]
+ancle_bot_dict = ["ancle boot", "zapato", "zapatos","botas","botines"]
 
 def find_category(description):
     if not description:

@@ -86,6 +86,26 @@ class InditexScrapper:
         category=find_category(description)
         return url, category, float(price.replace(",",".")), "EUR", description, image_urls
 
+    def extract_massimodutty(self, url):
+        self.driver.get(url)
+        sleeps=[5,10,20,15]
+        sleep(np.random.choice(sleeps))
+        soup = BeautifulSoup(self.driver.page_source, 'html.parser')
+        a = soup.findAll("img", {"class": "center-block img-responsive main-image lazy-img"})
+        image_urls = []
+        for image in a:
+            try:
+                image_urls.append(image['src'])
+            except:
+                pass
+        price = soup.find("span", {"class": "price text-14-m ng-binding ng-scope"})
+        price, price_currency = price.string.split()
+
+        description = str(soup.find("p", {"ng-bind":"$ctrl.product.activeDetail.longDescription"}).string)
+
+        category=find_category(description)
+        return url, category, float(price.replace(",",".")), "EUR", description, image_urls
+
     def extract_pull_and_bear(self, url):
         self.driver.get(url)
         sleeps=[5,10,20,15]
@@ -148,8 +168,8 @@ class InditexScrapper:
 if __name__ == '__main__':
     zara = InditexScrapper(use_proxy=False)
 
-    url, category, price, price_currency, description, image_urls = zara.extract_pull_and_bear(
-        "https://www.pullandbear.com/es/mujer/ropa/jeans-mom-b%C3%A1sicos-c1030207046p501830542.html?cS=427")
+    url, category, price, price_currency, description, image_urls = zara.extract_massimodutty(
+        "https://www.massimodutti.com/es/hombre/zapatos/ver-todo/deportivo-cepillado-marr%C3%B3n-c1887025p8817111.html?colorId=709&categoryId=1887025")
 
 
 

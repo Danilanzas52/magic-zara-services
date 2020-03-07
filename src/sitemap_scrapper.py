@@ -3,7 +3,7 @@ import os
 import numpy as np
 
 ZARA_SPAIN_SITEMAP= "https://www.zara.com/sitemaps/sitemap-es-es.xml.gz"
-
+from categories import find_category
 
 def get_item_urls(sitemap_url):
     """ Retrieves the urls of the articles that zara has in it's web page """
@@ -23,7 +23,9 @@ def get_item_urls(sitemap_url):
 
 
             if any(word in url for word in["/es/mujer","/es/hombre"]):
-                item_urls.append(loc.contents[0])
+                if find_category(url):
+
+                    item_urls.append(loc.contents[0])
 
     # os.remove(sitemap_url.split("/")[-1][:-3])
     np.random.shuffle(item_urls)
